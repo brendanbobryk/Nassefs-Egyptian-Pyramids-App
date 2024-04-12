@@ -5,8 +5,6 @@ import org.json.simple.*;
 
 public class App {
 
-    // I've used two arrays here for O(1) reading of the pharaohs and pyramids.
-    // other structures or additional structures can be used
     protected Pharaoh[] pharaohArray;
     protected Pyramid[] pyramidArray;
 
@@ -44,6 +42,7 @@ public class App {
         String pyramidFile = "C:/Users/Brendan/Documents/GitHub/Nassefs-Egyptian-Pyramids-App/demo/src/main/java/com/example/pyramid.json";
         JSONArray pyramidJSONArray = JSONFile.readArray(pyramidFile);
 
+        // create and fill hashmap to relate hieroglyphics to pharaoh information
         HashMap<String, Pharaoh> pharaohDatabase = new HashMap<String, Pharaoh>();
         for (int i = 0; i < pharaohArray.length; i++) {
             pharaohDatabase.put(pharaohArray[i].hieroglyphic, pharaohArray[i]);
@@ -90,6 +89,7 @@ public class App {
             JSONObject o = (JSONObject) pyramidJSONArray.get(i);
 
             // parse the json object
+            // add proper pharaohs to pyramid array within the loop
             Integer id = toInteger(o, "id");
             String name = o.get("name").toString();
             JSONArray contributorsJSONArray = (JSONArray) o.get("contributors");
