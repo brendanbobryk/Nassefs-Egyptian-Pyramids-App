@@ -144,6 +144,25 @@ public class App {
         }
     }
 
+    // print a specific Egyptian pharaoh
+    private void printOnePharaoh(Scanner scan) {
+        System.out.printf("Enter a pharaoh id: ");
+        try {
+            int pharaohId = scan.nextInt();
+            printMenuLine();
+            pharaohArray[pharaohId].print();
+        } catch (Exception e) {
+            printMenuLine();
+            System.out.println("ERROR: Unknown pharaoh id");
+        }
+        printMenuLine();
+    }
+
+    // print a specific pyramid
+    private void printOnePyramid() {
+        System.out.println("Enter a pyramid id: ");
+    }
+
     private Boolean executeCommand(Scanner scan, Character command) {
         Boolean success = true;
 
@@ -152,11 +171,13 @@ public class App {
                 printAllPharaoh();
                 break;
             case '2':
+                printOnePharaoh(scan);
                 break;
             case '3':
                 printAllPyramid();
                 break;
             case '4':
+                printOnePyramid();
                 break;
             case '5':
                 break;
