@@ -44,8 +44,13 @@ public class App {
         String pyramidFile = "C:/Users/Brendan/Documents/GitHub/Nassefs-Egyptian-Pyramids-App/demo/src/main/java/com/example/pyramid.json";
         JSONArray pyramidJSONArray = JSONFile.readArray(pyramidFile);
 
+        HashMap<String, Pharaoh> pharaohDatabase = new HashMap<String, Pharaoh>();
+        for (int i = 0; i < pharaohArray.length; i++) {
+            pharaohDatabase.put(pharaohArray[i].hieroglyphic, pharaohArray[i]);
+        }
+
         // create and initialize the pyramid array
-        initializePyramid(pyramidJSONArray);
+        initializePyramid(pyramidJSONArray, pharaohDatabase);
 
     }
 
@@ -74,7 +79,8 @@ public class App {
     }
 
     // initialize the pyramid array
-    private void initializePyramid(JSONArray pyramidJSONArray) {
+    // new attribute: HashMap <String, Pharaoh> pharaohDatabase
+    private void initializePyramid(JSONArray pyramidJSONArray, HashMap<String, Pharaoh> pharaohDatabase) {
         // create array and hash map
         pyramidArray = new Pyramid[pyramidJSONArray.size()];
 
@@ -87,10 +93,10 @@ public class App {
             Integer id = toInteger(o, "id");
             String name = o.get("name").toString();
             JSONArray contributorsJSONArray = (JSONArray) o.get("contributors");
-            String[] contributors = new String[contributorsJSONArray.size()];
-            for (int j = 0; j < contributorsJSONArray.size(); j++) {
+            Pharaoh[] contributors = new Pharaoh[contributorsJSONArray.size()];
+            for (int j = 0; j < contributors.length; j++) {
                 String c = contributorsJSONArray.get(j).toString();
-                contributors[j] = c;
+                contributors[j] = pharaohDatabase.get(c);
             }
 
             // add a new pyramid to array
@@ -129,12 +135,30 @@ public class App {
         }
     }
 
+    // print all pyramids
+    private void printAllPyramid() {
+        for (int i = 0; i < pyramidArray.length; i++) {
+            printMenuLine();
+            pyramidArray[i].print();
+            printMenuLine();
+        }
+    }
+
     private Boolean executeCommand(Scanner scan, Character command) {
         Boolean success = true;
 
         switch (command) {
             case '1':
                 printAllPharaoh();
+                break;
+            case '2':
+                break;
+            case '3':
+                printAllPyramid();
+                break;
+            case '4':
+                break;
+            case '5':
                 break;
             case 'q':
                 System.out.println("Thank you for using Nassef's Egyptian Pyramid App!");
