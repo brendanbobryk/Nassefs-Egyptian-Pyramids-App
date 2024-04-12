@@ -17,6 +17,7 @@ public class App {
     // main loop for app
     public void start() {
         Scanner scan = new Scanner(System.in);
+        HashSet<Integer> requestedIds = new HashSet<Integer>();
         Character command = '_';
 
         // loop until user quits
@@ -25,7 +26,7 @@ public class App {
             System.out.print("Enter a command: ");
             command = menuGetCommand(scan);
 
-            executeCommand(scan, command);
+            executeCommand(scan, command, requestedIds);
         }
     }
 
@@ -160,13 +161,14 @@ public class App {
     }
 
     // print a specific pyramid
-    private void printOnePyramid(Scanner scan) {
+    private void printOnePyramid(Scanner scan, HashSet<Integer> requestedIds) {
         System.out.printf("Enter a pyramid id: ");
         try {
             int pyramidId = scan.nextInt();
             scan.nextLine(); // clears buffer
             printMenuLine();
             pyramidArray[pyramidId].print();
+            requestedIds.add(pyramidId); // add id to requested id HashSet
         } catch (Exception e) {
             printMenuLine();
             System.out.println("ERROR: Unknown pyramid id");
@@ -174,7 +176,20 @@ public class App {
         printMenuLine();
     }
 
-    private Boolean executeCommand(Scanner scan, Character command) {
+    // prints requested pyramids
+    private void printRequestedPyramids(HashSet<Integer> requestedIds) {
+        printMenuLine();
+        System.out.println("List of requested pyramids");
+        System.out.println("\tId\tName");
+        System.out.println("\t---\t--------------------");
+        for (Integer i : requestedIds) {
+            System.out.printf("\t" + i + "\t"); // prints pyramid id
+            System.out.println(pyramidArray[i].name); // prints name of the pyramid
+        }
+        printMenuLine();
+    }
+
+    private Boolean executeCommand(Scanner scan, Character command, HashSet<Integer> requestedIds) {
         Boolean success = true;
 
         switch (command) {
@@ -188,9 +203,10 @@ public class App {
                 printAllPyramid();
                 break;
             case '4':
-                printOnePyramid(scan);
+                printOnePyramid(scan, requestedIds);
                 break;
             case '5':
+                printRequestedPyramids(requestedIds);
                 break;
             case 'q':
                 System.out.println("Thank you for using Nassef's Egyptian Pyramid App!");
