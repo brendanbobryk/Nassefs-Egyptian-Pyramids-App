@@ -149,6 +149,7 @@ public class App {
         System.out.printf("Enter a pharaoh id: ");
         try {
             int pharaohId = scan.nextInt();
+            scan.nextLine(); // clears buffer
             printMenuLine();
             pharaohArray[pharaohId].print();
         } catch (Exception e) {
@@ -159,8 +160,18 @@ public class App {
     }
 
     // print a specific pyramid
-    private void printOnePyramid() {
-        System.out.println("Enter a pyramid id: ");
+    private void printOnePyramid(Scanner scan) {
+        System.out.printf("Enter a pyramid id: ");
+        try {
+            int pyramidId = scan.nextInt();
+            scan.nextLine(); // clears buffer
+            printMenuLine();
+            pyramidArray[pyramidId].print();
+        } catch (Exception e) {
+            printMenuLine();
+            System.out.println("ERROR: Unknown pyramid id");
+        }
+        printMenuLine();
     }
 
     private Boolean executeCommand(Scanner scan, Character command) {
@@ -177,7 +188,7 @@ public class App {
                 printAllPyramid();
                 break;
             case '4':
-                printOnePyramid();
+                printOnePyramid(scan);
                 break;
             case '5':
                 break;
