@@ -36,7 +36,7 @@ public class App {
         String pharaohFile = "C:/Users/Brendan/Documents/GitHub/Nassefs-Egyptian-Pyramids-App/demo/src/main/java/com/example/pharaoh.json";
         JSONArray pharaohJSONArray = JSONFile.readArray(pharaohFile);
 
-        // create and intialize the pharaoh array
+        // create and initialize the pharaoh array
         initializePharaoh(pharaohJSONArray);
 
         // read pyramids
@@ -59,7 +59,7 @@ public class App {
         // create array and hash map
         pharaohArray = new Pharaoh[pharaohJSONArray.size()];
 
-        // initalize the array
+        // initialize the array
         for (int i = 0; i < pharaohJSONArray.size(); i++) {
             // get the object
             JSONObject o = (JSONObject) pharaohJSONArray.get(i);
@@ -72,7 +72,7 @@ public class App {
             Integer contribution = toInteger(o, "contribution");
             String hieroglyphic = o.get("hieroglyphic").toString();
 
-            // add a new pharoah to array
+            // add a new pharaoh to array
             Pharaoh p = new Pharaoh(id, name, begin, end, contribution, hieroglyphic);
             pharaohArray[i] = p;
         }
@@ -84,7 +84,7 @@ public class App {
         // create array and hash map
         pyramidArray = new Pyramid[pyramidJSONArray.size()];
 
-        // initalize the array
+        // initialize the array
         for (int i = 0; i < pyramidJSONArray.size(); i++) {
             // get the object
             JSONObject o = (JSONObject) pyramidJSONArray.get(i);
@@ -212,7 +212,7 @@ public class App {
                 System.out.println("Thank you for using Nassef's Egyptian Pyramid App!");
                 break;
             default:
-                System.out.println("ERROR: Unknown commmand");
+                System.out.println("ERROR: Unknown command");
                 success = false;
         }
 
@@ -235,7 +235,7 @@ public class App {
         printMenuLine();
         System.out.printf("Command\t\tDescription\n");
         System.out.printf("-------\t\t---------------------------------------\n");
-        printMenuCommand('1', "List all the pharoahs");
+        printMenuCommand('1', "List all the pharaohs");
         printMenuCommand('2', "Displays a specific Egyptian pharaoh");
         printMenuCommand('3', "List all the pyramids");
         printMenuCommand('4', "Displays a specific pyramid");
